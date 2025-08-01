@@ -7,7 +7,7 @@ export default function Home() {
         <div className="container px-4 md:px-6 text-center">
           <div className="space-y-6 flex flex-col items-center justify-center">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">SEETHA RAMA VIVAHA TRUST BHAVANI</h1>
-            <img src="https://www.google.com/imgres?q=lord%20ram&imgurl=https%3A%2F%2Fcdn.magicdecor.in%2Fcom%2F2024%2F02%2F03172240%2FManmohak-Shri-Ram-Lalla-HD-Wallpaper-for-Wall.jpg&imgrefurl=https%3A%2F%2Fmagicdecor.in%2Fwallpaper%2Fmanmohak-shri-ram-lalla-hd-wallpaper-for-wall%2F%3Fsrsltid%3DAfmBOorzQyYNvKTqfh31SAm17j8YqXCjlIBKFQzRrxuh4vicllfcOJDE&docid=nCS1B-LfBpfMaM&tbnid=ezTrEGbGm9FsMM&vet=12ahUKEwiEod7kiumOAxX2fWwGHf6PMzwQM3oECCIQAA..i&w=1200&h=1200&hcb=2&ved=2ahUKEwiEod7kiumOAxX2fWwGHf6PMzwQM3oECCIQAA" alt="Modular Event & Donation Platform Logo" className="mx-auto h-24 w-24 max-w-full flex items-center justify-center bg-white rounded-lg text-primary-brand font-bold text-2xl shadow-lg" />
+            <img src="https://images.pexels.com/photos/15902534/pexels-photo-15902534.jpeg" alt="Modular Event & Donation Platform Logo" className="mx-auto h-24 w-24 max-w-full flex items-center justify-center bg-white rounded-lg text-primary-brand font-bold text-2xl shadow-lg" />
             <p className="max-w-[700px] mx-auto text-gray-200 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               Seetha Rama Vivaha Trust (SRVT) is a registered charitable trust to organise Seetha Rama Vivaha Mahotsavam in Bhajanai Sampradhaya Paddathi at Bhavani every year during the month of July by engaging eminent Bagavathas group.
             </p>

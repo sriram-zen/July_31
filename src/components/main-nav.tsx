@@ -14,6 +14,57 @@ export default function MainNav() {
 
   return (
     <nav className="bg-primary-brand text-white p-4 flex items-center justify-between">
+      {/* Mobile Navigation */}
+      <div className="sm:hidden">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white hover:text-primary-brand border border-white">
+              <Menu className="h-6 w-6 stroke-current" />
+              <span className="sr-only">Toggle navigation menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="bg-[#043933] text-white border-r border-gray-700 shadow-lg rounded-r-lg">
+            <nav className="flex flex-col space-y-4 pt-8">
+              <Link
+                href="/"
+                className={`block text-lg font-medium hover:underline py-2 ${pathname === "/" ? "font-bold" : ""}`}
+                onClick={() => setIsOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                href="/about"
+                className="block text-lg font-medium hover:underline py-2"
+                onClick={() => setIsOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                href="/gallery"
+                className="block text-lg font-medium hover:underline py-2"
+                onClick={() => setIsOpen(false)}
+              >
+                Gallery
+              </Link>
+              <Link
+                href="/contact"
+                className="block text-lg font-medium hover:underline py-2"
+                onClick={() => setIsOpen(false)}
+              >
+                Contact
+              </Link>
+              <Link
+                href="/events"
+                className="block text-lg font-medium hover:underline py-2"
+                onClick={() => setIsOpen(false)}
+              >
+                Events
+              </Link>
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </div>
+
       {/* Desktop Navigation */}
       <ul className="hidden sm:flex sm:flex-row justify-start space-x-4">
         <li>
@@ -42,57 +93,6 @@ export default function MainNav() {
           </Link>
         </li>
       </ul>
-
-      {/* Mobile Navigation */}
-      <div className="sm:hidden ml-auto">
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white hover:text-[#043933]">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle navigation menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="bg-primary-brand text-white border-r border-gray-700">
-            <nav className="flex flex-col space-y-4 pt-8">
-              <Link
-                href="/"
-                className={`text-lg font-medium hover:underline ${pathname === "/" ? "font-bold" : ""}`}
-                onClick={() => setIsOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/about"
-                className="text-lg font-medium hover:underline"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                href="/gallery"
-                className="text-lg font-medium hover:underline"
-                onClick={() => setIsOpen(false)}
-              >
-                Gallery
-              </Link>
-              <Link
-                href="/contact"
-                className="text-lg font-medium hover:underline"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                href="/events"
-                className="text-lg font-medium hover:underline"
-                onClick={() => setIsOpen(false)}
-              >
-                Events
-              </Link>
-            </nav>
-          </SheetContent>
-        </Sheet>
-      </div>
     </nav>
   );
 }
