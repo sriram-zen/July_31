@@ -12,5 +12,7 @@ export function encodedRedirect(
   path: string,
   message: string,
 ) {
-  return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
+  const url = new URL(path, "http://localhost"); // Base URL is dummy, only for URLSearchParams
+  url.searchParams.set(type, encodeURIComponent(message));
+  return redirect(url.pathname + url.search);
 }

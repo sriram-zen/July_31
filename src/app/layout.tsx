@@ -1,13 +1,12 @@
+import MainNav from "@/components/main-nav";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { ThemeProvider } from "next-themes";
-import Link from "next/link";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import AuthButton from "@/components/header-auth";
-import Image from "next/image";
+import { AdminLoginDialog } from "@/components/admin-login-dialog";
+import { Button } from "@/components/ui/button";
+import Script from "next/script";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,42 +29,52 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
+      <head>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'GA_MEASUREMENT_ID');
+          `}
+        </Script>
+      </head>
+      <body className="bg-[#043933] text-white relative">
+        <div className="absolute top-4 right-4 z-50">
+          <AdminLoginDialog>
+            <Button className="inline-flex h-10 items-center justify-center rounded-md bg-green-700 px-8 text-sm font-medium text-primary-brand shadow transition-colors hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-950 disabled:pointer-events-none disabled:opacity-50">
+              Admin
+            </Button>
+          </AdminLoginDialog>
+        </div>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-                <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-                  <div className="flex gap-5 items-center font-semibold">
-                    <Link href={"/"}>App</Link>
-                  </div>
-                  {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
-                </div>
-              </nav>
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
-              </div>
-
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-4">
-                <p>
-                Powered by{" "}
-                  <a
-                    href="https:alchemistudio.ai"
-                    target="_blank"
-                    className="font-bold hover:underline"
-                    rel="noreferrer"
-                  >
-                    Alchemi
-                  </a>
-                </p>
-                <ThemeSwitcher />
-              </footer>
+          <main className="min-h-screen flex flex-col">
+            <MainNav />
+            <div className="flex-grow flex flex-col items-center justify-center w-full p-5">
+              {children}
             </div>
+
+            <footer className="w-full flex items-center justify-center mx-auto text-center text-xs gap-8 py-4">
+              <p>
+              Powered by{" "}
+                <a
+                  href="https:alchemistudio.ai"
+                  target="_blank"
+                  className="font-bold hover:underline"
+                  rel="noreferrer"
+                >
+                  Alchemi
+                </a>
+              </p>
+              <ThemeSwitcher />
+            </footer>
           </main>
         </ThemeProvider>
       </body>

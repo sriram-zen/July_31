@@ -2,6 +2,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import MFADisableForm from "@/components/mfa-disable-form";
+import MFASetupForm from "@/components/mfa-setup-form";
 
 export default async function ProtectedPage() {
   const supabase = await createClient();
@@ -29,6 +31,8 @@ export default async function ProtectedPage() {
           {JSON.stringify(user, null, 2)}
         </pre>
       </div>
+      <MFASetupForm />
+      <MFADisableForm />
       
     </div>
   );

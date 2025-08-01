@@ -37,14 +37,31 @@ export const updateSession = async (request: NextRequest) => {
 
     // This will refresh session if expired - required for Server Components
     // https://supabase.com/docs/guides/auth/server-side/nextjs
-    const user = await supabase.auth.getUser();
+    const {
+      data: { user, session },
+      error: getUserError,
+    } = await supabase.auth.getUser();
 
-    // protected routes
-    if (request.nextUrl.pathname.startsWith("/protected") && user.error) {
-      return NextResponse.redirect(new URL("/sign-in", request.url));
+    if (getUserError) {
+      console.error("Error getting user in middleware:", getUserError);
+      // Optionally handle this error, e.g., redirect to an error page
     }
 
-    if (request.nextUrl.pathname === "/" && !user.error) {
+    // protected routes
+    if (request.nextUrl.pathname.startsWith("/protected")) {
+      if (!user) {
+        return NextResponse.redirect(new URL("/sign-in", request.url));
+      }
+
+      // Check if user has MFA factors enrolled and their current session is not aal2
+      if (user.factors && user.factors.length > 0 && session?.aal !== 'aal2') {
+        const redirectUrl = new URL("/mfa-verify", request.url);
+        redirectUrl.searchParams.set("next", request.nextUrl.pathname);
+        return NextResponse.redirect(redirectUrl);
+      }
+    }
+
+    if (request.nextUrl.pathname === "/" && user) {
       return NextResponse.redirect(new URL("/protected", request.url));
     }
 
