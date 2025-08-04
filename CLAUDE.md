@@ -29,7 +29,7 @@ This is a Next.js 15 application built with TypeScript, shadcn/ui components, Ta
 - `/mfa-verify` - MFA verification page with next URL redirect support
 - `/protected/*` - Protected routes requiring authentication
 - `/protected/reset-password` - Password reset for authenticated users
-- `/about`, `/gallery`, `/contact`, `/events`, `/instruments` - Public pages
+- `/about`, `/gallery`, `/contact`, `/events`, `/instruments` - Public pages (instruments page exists in route but not in navigation)
 
 ### Authentication Patterns
 - Protected routes automatically redirect to `/sign-in` if unauthenticated  
@@ -53,13 +53,14 @@ This is a Next.js 15 application built with TypeScript, shadcn/ui components, Ta
 - Form handling with `react-hook-form` and `zod` validation
 
 ### Styling and Branding
-- Tailwind CSS v4 with CSS variables for theming
+- Tailwind CSS v4 with PostCSS configuration (`postcss.config.mjs`)
 - Primary brand color: #043933 (dark green) - used consistently in navigation and key interface elements
 - Custom Tailwind color defined as `primary-brand: '#043933'` in tailwind.config.js
-- shadcn/ui configuration in `components.json` with New York style
-- Global styles in `src/app/globals.css`
-- Dark/light theme support via `next-themes`
-- Mobile-first responsive design approach
+- shadcn/ui configuration in `components.json` with New York style and lucide icons
+- Global styles in `src/app/globals.css` with CSS variables for theming
+- Dark/light theme support via `next-themes` with system detection
+- Mobile-first responsive design with Sheet component for mobile navigation
+- Main layout uses dark background (`bg-[#043933]`) with white text
 
 ### Hooks and Utilities
 - Custom hooks in `src/hooks/`:
@@ -67,6 +68,28 @@ This is a Next.js 15 application built with TypeScript, shadcn/ui components, Ta
   - `use-mobile.ts` - Mobile device detection
 - Utility functions in `src/lib/utils.ts` and `src/utils/utils.ts`
 - Environment variable validation in `src/utils/supabase/check-env-vars.ts`
+
+### Current Implementation State
+- **Authentication**: Fully implemented with Supabase auth, MFA support, and audit logging
+- **Routing**: Complete with protected routes, middleware-based auth checks, and MFA enforcement
+- **UI Components**: Comprehensive shadcn/ui component library with custom branding
+- **Navigation**: Mobile-responsive navigation with hamburger menu and primary brand colors
+- **Forms**: React Hook Form integration with Zod validation ready for implementation
+- **Admin Features**: Framework in place but specific admin functionality needs implementation
+- **Payment Integration**: Architecture defined but not yet implemented
+- **WhatsApp Integration**: Architecture defined but not yet implemented
+
+### Technology Stack & Dependencies
+- **Framework**: Next.js 15 with App Router and TypeScript
+- **Authentication**: Supabase (@supabase/ssr, @supabase/supabase-js)
+- **UI Library**: shadcn/ui components with Radix UI primitives
+- **Styling**: Tailwind CSS 4 with next-themes for theme switching  
+- **Forms**: react-hook-form with @hookform/resolvers and Zod validation
+- **Icons**: lucide-react
+- **Utilities**: class-variance-authority, clsx, tailwind-merge
+- **Date Handling**: date-fns with react-day-picker
+- **Charts**: recharts (for future analytics)
+- **Notifications**: sonner for toast notifications
 
 ### Key Architectural Patterns
 - Server Components and Server Actions for data fetching and mutations
@@ -96,11 +119,12 @@ This is a Next.js 15 application built with TypeScript, shadcn/ui components, Ta
 
 ### Key Files to Check When Working on Auth
 - `src/utils/supabase/middleware.ts` - Route protection logic and MFA enforcement
-- `src/actions/auth.ts` - Server Actions for auth operations  
+- `src/actions/auth.ts` - Server Actions for auth operations with MFA audit logging
 - `src/components/header-auth.tsx` - Auth button component
 - `src/utils/supabase/check-env-vars.ts` - Environment validation
 - `src/components/mfa-setup-form.tsx` - MFA enrollment component
 - `src/components/mfa-disable-form.tsx` - MFA removal component
+- `middleware.ts` (root level) - Next.js middleware entry point
 
 ### Platform-Specific Context
 - This is a trust/nonprofit management platform with admin-only data entry
